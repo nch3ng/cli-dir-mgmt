@@ -1,0 +1,31 @@
+{
+  "name": "cli-file-mgmt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "smoke": "rm -f actual.output && sh ./smoke-test.sh",
+    "start:dev": "DEBUG=* nodemon --exec ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.14.9",
+    "typescript": "^5.5.2"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/debug": "^4.1.12",
+    "@types/jest": "^29.5.12",
+    "debug": "^4.3.5",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2"
+  }
+}
