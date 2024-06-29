@@ -1,9 +1,10 @@
 {
-  "name": "cli-file-mgmt",
+  "name": "cli-dir-mgmt",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "smoke": "rm -f actual.output && sh ./smoke-test.sh",
     "start:dev": "DEBUG=* nodemon --exec ts-node src/index.ts",
