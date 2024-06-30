@@ -1,5 +1,7 @@
 # Directory Manager
 
+[![CI](https://github.com/nch3ng/cli-dir-mgmt/actions/workflows/ci.yml/badge.svg)](https://github.com/nch3ng/cli-dir-mgmt/actions/workflows/ci.yml)
+
 This is a project that manages an in-memory directory structure using TypeScript. The program can create, delete, move directories, and print the directory structure in alphabetical order.
 
 ## Prerequisites
