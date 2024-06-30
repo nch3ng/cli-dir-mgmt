@@ -121,7 +121,7 @@ describe("DirectoryManger", () => {
       directoryManager.move("test", "test/nested/deep");
 
       expect(logSpy).toHaveBeenCalledWith(
-        "Cannot move test/nested to test/nested/deep - test/nested does not exist"
+        "Cannot move test to test/nested/deep - test/nested/deep does not exist"
       );
 
       logSpy.mockRestore();
