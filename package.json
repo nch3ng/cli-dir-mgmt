@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "exec:commands-input": "cat commands.input | npm run start",
+    "exec:commands-input": "cat test-cases/inputs/main.input | npm run start",
     "smoke": "rm -f actual.output && sh ./smoke-test.sh",
     "start:dev": "DEBUG=* nodemon --exec ts-node src/index.ts",
     "start": "ts-node src/index.ts",

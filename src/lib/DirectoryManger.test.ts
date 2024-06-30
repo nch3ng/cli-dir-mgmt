@@ -4,102 +4,24 @@ describe("DirectoryManger", () => {
   let directoryManager: DirectoryManager;
 
   beforeEach(() => {
-    directoryManager = new DirectoryManager("");
+    directoryManager = new DirectoryManager();
   });
 
   it("should be defined", () => {
     expect(directoryManager).toBeDefined();
   });
 
-  describe("create", () => {
-    it("should create a directory", () => {
-      directoryManager.create("test");
-      expect(directoryManager.children.has("test")).toBe(true);
-    });
-
-    it("should create a nested directory", () => {
-      directoryManager.create("test/nested");
-      expect(directoryManager.children.has("test")).toBe(true);
-      expect(
-        directoryManager.children.get("test")!.children.has("nested")
-      ).toBe(true);
-    });
-
-    it("should create multiple nested directories", () => {
-      directoryManager.create("test/nested/deep");
-      expect(directoryManager.children.has("test")).toBe(true);
-      expect(
-        directoryManager.children.get("test")!.children.has("nested")
-      ).toBe(true);
-      expect(
-        directoryManager.children
-          .get("test")!
-          .children.get("nested")!
-          .children.has("deep")
-      ).toBe(true);
-    });
-  });
-
   describe("delete", () => {
-    it("should delete a directory", () => {
-      directoryManager.create("test");
-      directoryManager.delete("test");
-      expect(directoryManager.children.has("test")).toBe(false);
-    });
+    it("should print the error message if the directory does not exist", () => {
+      const logSpy = jest.spyOn(console, "log").mockImplementation();
 
-    it("should delete a nested directory", () => {
-      directoryManager.create("test/nested");
       directoryManager.delete("test/nested");
 
-      expect(directoryManager.children.has("test")).toBe(true);
-      expect(
-        directoryManager.children.get("test")!.children.has("nested")
-      ).toBe(false);
-    });
-  });
+      expect(logSpy).toHaveBeenCalledWith(
+        "Cannot delete test/nested - test does not exist"
+      );
 
-  describe("move", () => {
-    it("should move a directory", () => {
-      directoryManager.create("targetDir");
-      directoryManager.create("test");
-      directoryManager.move("test", "targetDir");
-
-      expect(directoryManager.children.has("test")).toBe(false);
-      expect(directoryManager.children.has("targetDir")).toBe(true);
-      expect(
-        directoryManager.children.get("targetDir")!.children.has("test")
-      ).toBe(true);
-    });
-
-    it("should move a nested directory", () => {
-      directoryManager.create("targetDir");
-      directoryManager.create("srcDir/nested");
-      directoryManager.move("srcDir/nested", "targetDir");
-
-      expect(directoryManager.children.has("srcDir")).toBe(true);
-      expect(
-        directoryManager.children.get("srcDir")!.children.has("nested")
-      ).toBe(false);
-      expect(
-        directoryManager.children.get("targetDir")!.children.has("nested")
-      ).toBe(true);
-    });
-
-    it("should move a nested directory to a nested destination, and the parent source directory still intacted", () => {
-      directoryManager.create("targetDir/nested");
-      directoryManager.create("srcDir/nested");
-      directoryManager.move("srcDir/nested", "targetDir/nested");
-
-      expect(directoryManager.children.has("srcDir")).toBe(true);
-      expect(
-        directoryManager.children.get("srcDir")!.children.has("nested")
-      ).toBe(false);
-      expect(
-        directoryManager.children
-          .get("targetDir")!
-          .children.get("nested")!
-          .children.has("nested")
-      ).toBe(true);
+      logSpy.mockRestore();
     });
   });
 
@@ -173,6 +95,34 @@ describe("DirectoryManger", () => {
       expect(logSpy).toHaveBeenNthCalledWith(12, "  xested");
       expect(logSpy).toHaveBeenNthCalledWith(13, "    deep");
       expect(logSpy).toHaveBeenNthCalledWith(14, "  zested");
+
+      logSpy.mockRestore();
+    });
+  });
+
+  describe("move", () => {
+    it("should print the error message if the source directory does not exist", () => {
+      const logSpy = jest.spyOn(console, "log").mockImplementation();
+
+      directoryManager.move("test/nested", "test/nested/deep");
+
+      expect(logSpy).toHaveBeenCalledWith(
+        "Cannot move test/nested to test/nested/deep - test/nested does not exist"
+      );
+
+      logSpy.mockRestore();
+    });
+
+    it("should print the error message if the destination directory does not exist", () => {
+      directoryManager.create("test");
+
+      const logSpy = jest.spyOn(console, "log").mockImplementation();
+
+      directoryManager.move("test", "test/nested/deep");
+
+      expect(logSpy).toHaveBeenCalledWith(
+        "Cannot move test/nested to test/nested/deep - test/nested does not exist"
+      );
 
       logSpy.mockRestore();
     });

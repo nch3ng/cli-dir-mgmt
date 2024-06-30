@@ -3,16 +3,28 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 # Running the program
-cat commands.input | npm run start | tail -n +5 > actual.output
 
-DIFF=$(diff --strip-trailing-cr expect.output actual.output)
+TEST_CASES=("main" "case1" "case2")
 
-if [ "$DIFF" != "" ] 
+FAIL=0
+for testcase in "${TEST_CASES[@]}"; do
+    echo "Processing test case: $testcase"
+    cat ./test-cases/inputs/${testcase}.input | npm run start -- --no-prompt | tail -n +5 > ./test-cases/outputs/${testcase}.actual.output
+
+    DIFF=$(diff --strip-trailing-cr test-cases/outputs/${testcase}.expect.output test-cases/outputs/${testcase}.actual.output)
+
+    if [ "$DIFF" != "" ] 
+    then
+        echo "${RED}Failed${NC}"
+        echo $DIFF
+        FAIL=1
+    else
+        echo "${GREEN}Passed${NC}"
+    fi
+done
+
+if [ $FAIL -eq 1 ]
 then
-    echo "${RED}Failed${NC}"
-    echo $DIFF
     exit 1
-else
-    echo "${GREEN}Passed${NC}"
-    exit 0
 fi
+exit 0

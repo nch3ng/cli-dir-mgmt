@@ -1,0 +1,32 @@
+CREATE libraries
+CREATE libraries/science
+CREATE libraries/science/physics
+CREATE libraries/science/physics/quantum
+LIST
+libraries
+  science
+    physics
+      quantum
+CREATE libraries/science/chemistry
+MOVE libraries/science/chemistry libraries/science/physics
+LIST
+libraries
+  science
+    physics
+      chemistry
+      quantum
+CREATE libraries/arts
+LIST
+libraries
+  arts
+  science
+    physics
+      chemistry
+      quantum
+DELETE libraries/science/physics
+DELETE libraries/science/physics/quantum
+Cannot delete libraries/science/physics/quantum - physics does not exist
+LIST
+libraries
+  arts
+  science

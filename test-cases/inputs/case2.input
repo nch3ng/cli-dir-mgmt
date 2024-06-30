@@ -1,0 +1,13 @@
+CREATE libraries
+CREATE libraries/science
+CREATE libraries/science/physics
+CREATE libraries/science/physics/quantum
+LIST
+CREATE libraries/science/chemistry
+MOVE libraries/science/chemistry libraries/science/physics
+LIST
+CREATE libraries/arts
+LIST
+DELETE libraries/science/physics
+DELETE libraries/science/physics/quantum
+LIST
