@@ -11,6 +11,8 @@ if [ "$DIFF" != "" ]
 then
     echo "${RED}Failed${NC}"
     echo $DIFF
+    exit 1
 else
     echo "${GREEN}Passed${NC}"
+    exit 0
 fi
