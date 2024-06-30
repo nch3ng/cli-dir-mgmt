@@ -1,7 +1,7 @@
 import * as readline from "readline";
 import { DirectoryManager } from "./DirectoryManager";
 
-const debug = require("debug")("Cli");
+const debug = require("debug")("CliManager");
 
 export class Cli {
   private rl: readline.Interface;

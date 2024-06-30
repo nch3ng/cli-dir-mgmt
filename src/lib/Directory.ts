@@ -25,7 +25,6 @@ export class Directory {
     let current: Directory = this;
 
     for (const part of parts) {
-      debug(part);
       if (!current.children.has(part)) {
         current.children.set(part, new Directory(part));
       }
