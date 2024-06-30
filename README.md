@@ -19,7 +19,7 @@ npm install
 
 ## Exec
 
-The implementation initially functioned as a prompt console but eventually adapted to receive standard input. Therefore, according to the requirement, it can be achieved by reading the file and piping it to the command. The input commands are pre-configured in the test-cases/inputs/main.input file.
+The implementation initially functioned as a prompt console but eventually adapted to receive standard input. Therefore, according to the requirement, it can be achieved by reading the file and piping it to the command. The input commands are pre-configured in the `test-cases/inputs/main.input` file, also being used as smoke test cases.
 
 ```bash
 cat test-cases/inputs/main.input | npm run start -- --no-prompt
@@ -56,4 +56,10 @@ To run the unit tests, use the following command:
 
 ```
 npm run test
+```
+
+To run the smoke tests via bash, use the following command:
+
+```
+npm run smoke
 ```
